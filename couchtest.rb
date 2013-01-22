@@ -52,11 +52,25 @@ module Couch
 	end
 end
 
-server = Couch::Server.new("localhost","5984")
+def create_db
+	# The server.put creates a new blank database. Does this overwrite?
+	server = Couch::Server.new("localhost","5984")
+	server.put("/todo/2",'{"status":"done","content":"secondpost"}')
+end
 #doc = <<-JSON
 #{"status":"new","content":"firstpost!"}
 #JSON
 #server.put("/todo/1",doc)
-res = server.get("/todo/1")
-json = res.body
-puts json
+#res = server.get("/todo/1")
+#json = res.body
+#puts json
+
+#create_db
+
+server = Couch::Server.new("localhost","5984")
+#json = res.body
+#puts json
+
+uri = URI('http://crc.iriscouch.com/_utils/database.html?to_do/83c55655e0a4c359d83461ac28001434')
+res = Net::HTTP.get(uri)
+puts res
